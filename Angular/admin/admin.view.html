@@ -1,0 +1,58 @@
+<div class="admin-container" ng-controller="AdminController" ng-init="loadAuth()" ng-app>
+
+    <div class="">
+        <form name="form" role="form">
+            <form name="user-info">
+                <div class="form-group">
+                    <label id="label">Admin information</label>
+                </div>
+            </form>
+        </form>
+        <div class="container-fluid">
+        <div class="row align-items-center" id="boxes">
+            <!--Add/Edit cities-->
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="box" id="city" ng-click="changeView('admin/cities')">
+                <i class="fa fa-map-marker fa-5x"></i>
+                <p><strong>Cities</strong></p>
+                </div>
+            </div>
+            <!--Add/Edit buildings-->
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="box" id="building" ng-click="changeView('admin/buildings')">
+                <i class="fa fa-building fa-5x"></i>      <!--fa fa-building-o-->
+                <p><strong>Buildings</p>
+                </div>
+            </div>
+            <!--Add/Edit rooms-->
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="box" id="room" ng-click="changeView('admin/rooms')">
+                <i class="fa fa-cube fa-5x"></i>
+                <p><strong>Rooms</strong></p>
+                </div>
+            </div>
+            <!--Add/Edit equipment-->
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="box" id="equipment" ng-click="changeView('admin/equipment')">
+                <i class="fa fa-briefcase fa-5x"></i>
+                <p><strong>Equipment</strong></p>
+                </div>
+            </div>
+            <!--Add/Edit users-->
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="box" id="user" ng-click="changeView('admin/users')">
+                <i class="fa fa-users fa-5x"></i>
+                <p><strong>Users</strong></p>
+                </div>
+            </div>
+            <!--preview-->
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="box" id="reservation" ng-click="changeView('reservation')">
+                <i class="fa fa-list fa-5x"></i>
+                <p><strong>Reservation</strong></p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,273 @@
+<div class="admin-container" ng-controller="AdminController" ng-init="loadUsers()">
+
+    <!--<div class="">-->
+        <form name="form" role="form">
+            <form id="user-reservations">
+                <div class="form-group">
+                    <label id="label" style="font-size: 200%">Users</label>
+                </div>
+            </form>
+       
+        <div class="text-center">
+            <ul uib-pagination ng-model="currentPage" items-per-page="numPerPage" total-items="users.length" max-size="maxSize" boundary-links="true" first-text="&#9664;" previous-text="&#9665;" next-text="&#9655;" last-text="&#9654;"></ul>
+        </div>
+        <div class="form-group">
+            <label for="city">Filter by: </label>
+            <select class="form-control-select" ng-model="userFilter" ng-change="setUserFilter(userFilter)">
+                    <option value="First name">First name</option>
+                    <option value="Last name">Last name</option>
+                    <option value="Position">Position</option>
+                    <option value="City">City</option>
+            </select>
+            <input class="form-control-input" type="text" ng-show="userFilterStatus==true" ng-model="userFilterValue" ng-change="setUserFilterValue(userFilterValue)"/>
+        </div>
+        <button id="new_reservation" class="btn btn-default btn-xs btn-detail" ng-click="toggleUser('add',0)">Add new user</button>
+        <!-- Table-to-load-the-data Part -->
+        <table id="table">
+            <thead id="thead">
+                <tr id="tr">
+                    <th id="th">Nr</th>
+                    <th id="th">First name</th>
+                    <th id="th">Last name</th>
+                    <th id="th">Position</th>
+                    <th id="th">Email</th>
+                    <th id="th">Username</th>
+                    <th id="th">City</th>
+                    <th id="th">Address</th>
+                    <th id="th">Employment date</th>
+                    <th id="th">Birth date</th>
+                    <th id="th">Is admin</th>
+                    <th id="th">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+
+                <tr ng-repeat="user in filteredUsers" id="tr">
+                    <td id="td_admin_users">{{ $index + 1 }}</td>
+
+                    <td id="td_admin_users">{{ user.first_name}}</td>
+                    <td id="td_admin_users">{{ user.last_name}}</td>
+                    <td id="td_admin_users">{{ user.position }}</td>
+                    <td id="td_admin_users">{{ user.email}}</td>
+                    <td id="td_admin_users">{{ user.username}}</td>
+                    <td id="td_admin_users">{{ user.city }}</td>
+                    <td id="td_admin_users">{{ user.address}}</td>
+                    <td id="td_admin_users">{{ user.employment_date}}</td>
+                    <td id="td_admin_users">{{ user.birth_date }}</td>
+                    <td id="td_admin_users">{{ user.is_admin }}</td>
+                    <td id="td_admin_users">
+                        <button class="btn btn-default btn-xs btn-detail" ng-click="toggleUser('edit',user.id)">Edit</button>
+                        <button class="btn btn-danger btn-xs btn-delete" ng-click="confirmDelete($event,user.id,'User')">Delete</button>
+                        <button class="btn btn-default btn-xs btn-delete" ng-click="toggleUser('reservations',user.id)">Show reservation</button>
+                        <!--<md-button ng-show="cookie.cookie_value===item.cookie" class="md-raised md-primary" ng-click="showPrompt($event,(pager.currentPage-1)*pager.pageSize +$index)" >Edit </md-button>-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Modal (Pop up when detail button clicked) -->
+        <script type="text/ng-template" id="userModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="userModalLabel">{{state}}</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" name="editForm">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">First name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="first_name" placeholder="First name" value="{{user.first_name}}" ng-model="user.first_name"
+                                ng-required="inputRequired">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Last name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="last_name" placeholder="Last name" value="{{user.last_name}}" ng-model="user.last_name"
+                                ng-required="inputRequired">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-9">
+                            <input type="email" class="form-control" name="input" id="email" placeholder="Email" value="{{user.email}}" ng-model="user.email" ng-required="inputRequired">
+                        </div>
+                        <div role="alert">
+                            <span class="error" ng-show="editForm.input.$error.email">
+                                Not valid email!
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Username</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="username" placeholder="Username" value="{{user.username}}" ng-model="user.username"
+                                ng-required="inputRequired">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="showField">
+                        <label class="col-sm-3 control-label">Password</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" id="password" placeholder="Password" value="{{user.password}}" ng-model="user.password"
+                                ng-required="inputRequired">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Position</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="position" placeholder="Position" value="{{user.position}}" ng-model="user.position"
+                                ng-required="inputRequired">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">City</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="city" placeholder="City" value="{{user.city}}" ng-model="user.city" ng-required="inputRequired">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Address</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="address" placeholder="Address" value="{{user.address}}" ng-model="user.address"
+                                ng-required="inputRequired">
+                        </div>
+                    </div>
+             
+                    <div class="form-horizontal">
+                        <label class="control-label">Is admin</label>
+                        <div class="span4">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <select class="form-control" data-ng-model="isAdminSelected" ng-options="item.text for item in adminSelectList track by item.key"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div uib-dropdown class="dropdown form-group dropdown-start-parent">
+                        <label class="control-label">Employment date:</label>
+                        <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target=".dropdown-start-parent">
+                            <div uib-dropdown-toggle class="input-group">
+                                <input type="text" class="form-control" placeholder="Enter end date" data-date-time-input="YYYY-MM-DD" value="{{user.employment_date}}"
+                                    ng-model="user.employment_date" ng-required="inputRequired" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" uib-tooltip="Open Calendar">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                        <span class="sr-only">Calendar</span>
+                                </button>
+                                </span>
+                            </div>
+                        </a>
+                        <div uib-dropdown-menu role="menu" auto-close="outsideClick">
+                            <datetimepicker data-ng-model="user.employment_date" data-datetimepicker-config="configurateDatetimePicker('start')">
+                            </datetimepicker>
+                        </div>
+                    </div>
+
+                    <div uib-dropdown class="dropdown form-group dropdown-end-parent">
+                        <label class="control-label">Birth date:</label>
+                        <a class="dropdown-toggle" id="dropdownEnd" role="button" data-toggle="dropdown" data-target=".dropdown-end-parent">
+                            <div uib-dropdown-toggle class="input-group">
+                                <input type="text" class="form-control" placeholder="Enter end date" data-date-time-input="YYYY-MM-DD" value="{{user.birth_date}}"
+                                    ng-model="user.birth_date" ng-required="inputRequired" />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" uib-tooltip="Open Calendar">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                        <span class="sr-only">Calendar</span>
+                                </button>
+                                </span>
+                            </div>
+                        </a>
+                        <div uib-dropdown-menu role="menu" auto-close="outsideClick">
+                            <datetimepicker data-ng-model="user.birth_date" data-datetimepicker-config="configurateDatetimePicker('end')">
+                            </datetimepicker>
+                        </div>
+                    </div>
+
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button ng-disabled="editForm.$invalid" type="button" class="btn btn-primary" id="saveBtn" ng-click="saveDataUser(modalstate)">Save changes</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+
+        <script type="text/ng-template" id="userReservationsModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="userReservationsModalLabel">{{state}}</h3>
+            </div>
+
+            <div class="modal-body">
+                <div flex>
+                        <form id="user_reservations" name="editForm">
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <select ng-model="city" class="form-control" ng-change="setSelectedCityModal(city, user.id)"
+                                        ng-options="item.city_name as item.city_name for item in cities">
+                                    <option value="">Select city</option>
+                                </select>
+                            </div>
+                            <div ng-show="buildingStatus=='true'" class="form-group">
+                                <label for="building">Building</label>
+                                <select ng-model="building" class="form-control" ng-change="setSelectedBuildingModal(building)"
+                                        ng-options="item.address as item.address for item in buildings">
+                                    <option value="">Select building</option>
+                                </select>
+                            </div>
+
+                            <table id="table">
+                                <thead id="thead">
+                                <tr id="tr">
+                                    <th id="th">Nr</th>
+                                    <th id="th">ID</th>
+                                    <th id="th">City</th>
+                                    <th id="th">Address</th>
+                                    <th id="th">Room number</th>
+                                    <th id="th">Room capacity</th>
+                                    <th id="th">Reservation timespan</th>
+                                    <th id="th">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tbody">
+                                <tr ng-repeat="reservation in reservations" id="tr">
+                                    <td id="td">{{$index + 1}}.</td>
+                                    <td id="td">{{ reservation.id }}</td>
+                                    <td id="td">{{ reservation.city_name }}</td>
+                                    <td id="td">{{ reservation.address }}</td>
+                                    <td id="td">{{ reservation.room_nr }}</td>
+                                    <td id="td">{{ reservation.capacity }}</td>
+                                    <td id="td">{{ reservation.start_date }} - {{ reservation.end_date }}</td>
+                                    <td id="td">
+                                        <button class="btn btn-default btn-xs btn-detail" ng-click="toggleUserReservation(reservation.id, user.id)">Edit</button>
+                                        <button class="btn btn-danger btn-xs btn-delete" ng-click="confirmDeleteReservation(reservation.id, user.id)">Delete</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+        <div class="btn-group">
+                <button class="btn btn-success" ng-click="changeView('admin')">Back</button>
+                <button class="btn btn-success" ng-click="changeView('reservation')">Reservations</button>
+                <button class="btn btn-success" ng-click="changeView('main')">Main</button>
+        </div>
+
+        <!--<div ng-click="changeView('admin')">
+            Back
+        </div>
+        <div ng-click="changeView('reservation')">
+            Reservations
+        </div>
+        <div ng-click="changeView('main')">
+            Main
+        </div>-->
+
+    </div>
+
+</div>

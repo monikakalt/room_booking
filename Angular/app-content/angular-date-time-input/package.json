@@ -1,0 +1,126 @@
+{
+  "_args": [
+    [
+      "angular-date-time-input",
+      "/var/www/html/GuestBookProject/ang"
+    ]
+  ],
+  "_from": "angular-date-time-input@latest",
+  "_id": "angular-date-time-input@1.2.1",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/angular-date-time-input",
+  "_nodeVersion": "6.6.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/angular-date-time-input-1.2.1.tgz_1475009985605_0.07653707079589367"
+  },
+  "_npmUser": {
+    "email": "dale@dalelotts.com",
+    "name": "dalelotts"
+  },
+  "_npmVersion": "3.10.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "angular-date-time-input",
+    "raw": "angular-date-time-input",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-date-time-input/-/angular-date-time-input-1.2.1.tgz",
+  "_shasum": "6d7b7eb47fb2cf6198ca564c5dd5bc5156279d76",
+  "_shrinkwrap": null,
+  "_spec": "angular-date-time-input",
+  "_where": "/var/www/html/GuestBookProject/ang",
+  "author": {
+    "name": "https://github.com/dalelotts/angular-date-time-input/graphs/contributors"
+  },
+  "bugs": {
+    "url": "https://github.com/dalelotts/angular-date-time-input/issues"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "angular": "^1.x",
+    "moment": "^2.15.x"
+  },
+  "description": "This angular directive allows users to manually enter date-time values in a variety of formats but displays the date value in the specified format.",
+  "devDependencies": {
+    "angular-mocks": "^1.x",
+    "coveralls": "^2.11.14",
+    "cz-conventional-changelog": "^1.2.0",
+    "eslint": "^3.6.1",
+    "gulp": "^3.9.1",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-jscs": "^4.0.0",
+    "gulp-jshint": "^2.0.1",
+    "gulp-standard": "^8.0.2",
+    "jasmine-core": "^2.5.2",
+    "jquery": "^3.1.1",
+    "jshint": "^2.9.3",
+    "jshint-stylish": "^2.2.1",
+    "karma": "^1.3.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-threshold-reporter": "^0.1.15",
+    "karma-webpack": "^1.8.0",
+    "lodash": "^4.16.2",
+    "phantomjs-prebuilt": "^2.1.12",
+    "plato": "^1.7.0",
+    "run-browser": "^2.0.2",
+    "semantic-release": "^6.3.0",
+    "standard": "^8.2.0",
+    "tape": "^4.6.0",
+    "webpack": "^1.13.2"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "6d7b7eb47fb2cf6198ca564c5dd5bc5156279d76",
+    "tarball": "https://registry.npmjs.org/angular-date-time-input/-/angular-date-time-input-1.2.1.tgz"
+  },
+  "gitHead": "c99b3045e2e1cb81e966f9992d84a15425c19b4c",
+  "homepage": "https://github.com/dalelotts/angular-date-time-input",
+  "keywords": [
+    "angular",
+    "date",
+    "date input",
+    "directive",
+    "moment",
+    "time",
+    "time input"
+  ],
+  "license": "MIT",
+  "main": "src/dateTimeInput.js",
+  "maintainers": [
+    {
+      "name": "dalelotts",
+      "email": "dale@dalelotts.com"
+    }
+  ],
+  "name": "angular-date-time-input",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dalelotts/angular-date-time-input.git"
+  },
+  "scripts": {
+    "coverage:upload": "cat build/coverage/lcov.info | coveralls",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "test": "npm run test-browserify && npm run test-webpack && gulp",
+    "test-browserify": "run-browser test/commonjs/browserify.test.js -b",
+    "test-webpack": "karma start test/webpack/karma.conf.js"
+  },
+  "version": "1.2.1"
+}

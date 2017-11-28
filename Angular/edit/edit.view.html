@@ -1,0 +1,82 @@
+<div id="edit.view.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="">Reservation</h3>
+    </div>
+
+    <div class="modal-body">
+        <!--<form class="form-horizontal">-->
+            <div class="group">
+                <div>
+                    <div class="row">
+                        <div class="span4">
+                            <div class="control-group">
+                                <div uib-dropdown class="dropdown form-group dropdown-start-parent">
+                                    <label class="control-label">Start date:</label>
+                                    <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target=".dropdown-start-parent">
+                                        <div uib-dropdown-toggle class="input-group">
+                                            <input type="text" class="form-control" placeholder="Enter start date" data-date-time-input="YYYY-MM-DD HH:mm" data-ng-model="selectedValues.start_date"
+                                            />
+                                            <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" uib-tooltip="Open Calendar">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                        <span class="sr-only">Calendar</span>
+                                            </button>
+                                            </span>
+                                        </div>
+                                    </a>
+                                    <div uib-dropdown-menu role="menu" auto-close="outsideClick">
+                                        <datetimepicker data-ng-model="selectedValues.start_date" data-before-render="startDateBeforeRender($dates,selectedValues.start_date,selectedValues.end_date)" data-datetimepicker-config="configurateDatetimePicker('start')"
+                                            data-on-set-time="startDateOnSetTime()">">
+                                        </datetimepicker>
+                                    </div>
+                                </div>
+                                <div uib-dropdown class="dropdown form-group dropdown-end-parent">
+                                    <label class="control-label">End date:</label>
+                                    <a class="dropdown-toggle" id="dropdownEnd" role="button" data-toggle="dropdown" data-target=".dropdown-end-parent">
+                                        <div uib-dropdown-toggle class="input-group">
+                                            <input type="text" class="form-control" placeholder="Enter end date" data-date-time-input="YYYY-MM-DD HH:mm" data-ng-model="selectedValues.end_date"
+                                            />
+                                            <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" uib-tooltip="Open Calendar">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                        <span class="sr-only">Calendar</span>
+                                            </button>
+                                            </span>
+                                        </div>
+                                    </a>
+                                    <div uib-dropdown-menu role="menu" auto-close="outsideClick">
+                                        <datetimepicker data-ng-model="selectedValues.end_date" data-before-render="endDateBeforeRender($view, $dates,selectedValues.start_date, $upDate, $rightDate)"
+                                            data-datetimepicker-config="configurateDatetimePicker('end')" data-on-set-time="endDateOnSetTime()">
+                                        </datetimepicker>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="errorStatus=='true'">
+                    <label>There are no empty rooms at this time</label>
+                </div>
+                <div ng-show="roomStatus=='true'" class="form-group" id="edit_form-group">
+                    <label for="room" class="fs-title">Room</label>
+                    <select ng-model="selected" class="form-control" ng-change="SelectedRoom(selected)" ng-options="'Room: ' + n.room_nr  + ', Capacity: ' + n.capacity for n in availableRooms">
+                    </select>
+                </div>
+                <div ng-show="equipmentStatus=='true'" class="form-group" id="edit_form-group">
+                    <label for="equipment" class="fs-title">Equipment</label>
+                    <div ng-repeat='item in items'>
+                        <select ng-model="item" class="form-control" ng-change="AddEquipment(item, $index)" ng-disabled="isDisabled[$index]" ng-options="item.equipment_type + ' (' + item.equipment_code + ')' for item in availableEquipment">
+                            <option value="">{{selectedValues.equip_selection_strings[$index]}}</option>
+                        </select>
+                        <button class="btn btn-danger" id="delete_button" ng-click='del($index)'>Delete item</button>
+                    </div>
+                    <button ng-show="addStatus=='true'" class="btn btn-secondary" ng-click='add()'>Add</button>
+                </div>
+            <!--</div>-->
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="saveBtn" ng-disabled="isEditDisabled" ng-click="EditReservation()">Save changes</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</div>

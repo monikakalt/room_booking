@@ -1,0 +1,80 @@
+
+<div class="admin-container"   ng-init="loadCities()">
+    <div class="">
+        <form name="form" role="form">
+            <form name="user-info">
+                <div class="form-group">
+                    <label id="label" style="font-size: 200%">Cities</label>
+                </div>
+            </form>
+        </form>
+        <div class="text-center">
+            <ul uib-pagination ng-model="currentPage" items-per-page="numPerPage" total-items="cities.length" max-size="maxSize" boundary-links="true" first-text="&#9664;" previous-text="&#9665;" next-text="&#9655;" last-text="&#9654;"></ul>
+        </div>
+        <button id="new_reservation" class="btn btn-default btn-xs btn-detail" ng-click="toggleCity('add',0)">Add new city</button>
+        <!-- Table-to-load-the-data Part -->
+        <table id="table">
+            <thead id="thead">
+            <tr id="tr">
+                <th id="th">ID</th>
+                <th id="th">City</th>
+                <th id="th">Actions</th>
+            </tr>
+            </thead>
+            <tbody id="tbody">
+            <tr ng-repeat="city in filteredCities" id="tr">
+                <td id="td_admin_cities">{{ $index + 1 }}</td>
+                <td id="td_admin_cities">{{ city.city_name }}</td>
+                <td id="td_admin_cities">
+                    <button class="btn btn-default btn-xs btn-detail" ng-click="toggleCity('edit',city.id)">Edit</button>
+                    <button class="btn btn-danger btn-xs btn-delete" ng-click="confirmDelete($event,city.id,'City')">Delete</button>
+                    <!--<md-button ng-show="cookie.cookie_value===item.cookie" class="md-raised md-primary" ng-click="showPrompt($event,(pager.currentPage-1)*pager.pageSize +$index)" >Edit </md-button>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Modal (Pop up when detail button clicked) -->
+        <script type="text/ng-template" id="cityModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="cityModalLabel">{{state}}</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" name="editForm">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">City name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="city_name" placeholder="City name" value="{{city.city_name}}" ng-model="city.city_name" ng-required="inputRequired">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>-->
+                <button ng-disabled="editForm.$invalid" type="button" class="btn btn-primary" id="saveBtn" ng-click="saveDataCity(modalstate)">Save changes</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+
+        <!--<button type="button" class="btn btn-default" ng-click="open()">Open me!</button>-->
+
+        <!-- End of Modal -->
+
+        <div class="btn-group">
+                <button class="btn btn-success" ng-click="changeView('admin')">Back</button>
+                <button class="btn btn-success" ng-click="changeView('reservation')">Reservations</button>
+                <button class="btn btn-success" ng-click="changeView('main')">Main</button>
+        </div>
+
+        <!--<div ng-click="changeView('admin')">
+            Back
+        </div>
+        <div ng-click="changeView('reservation')">
+            Reservations
+        </div>
+        <div ng-click="changeView('main')">
+            Main
+        </div>-->
+    </div>
+
+</div>

@@ -1,0 +1,93 @@
+<div class="admin-container" ng-init="loadBuildings()">
+    <div class="">
+        <form name="form" role="form">
+            <form name="user-info">
+                <div class="form-group">
+                    <label id="label" style="font-size: 200%">Buildings</label>
+                </div>
+            </form>
+        </form>
+        <div class="text-center">
+            <ul uib-pagination ng-model="currentPage" items-per-page="numPerPage" total-items="buildings.length" max-size="maxSize" boundary-links="true" first-text="&#9664;" previous-text="&#9665;" next-text="&#9655;" last-text="&#9654;"></ul>
+        </div>
+        <button id="new_reservation" class="btn btn-default btn-xs btn-detail" ng-click="toggleBuilding('add',0)">Add new building</button>        
+        <!-- Table-to-load-the-data Part -->
+        <table id="table">
+            <thead id="thead">
+                <tr id="tr">
+                    <th id="th">Nr</th>
+                    <th id="th">ID</th>
+                    <th id="th">City</th>
+                    <th id="th">Address</th>
+                    <th id="th">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                <tr ng-repeat="building in filteredBuildings" id="tr">
+                    <td id="td_admin_buildings">{{ $index + 1 }}</td>
+                    <td id="td_admin_buildings">{{ building.id }}</td>
+                    <td id="td_admin_buildings">{{ building.city_name}}</td>
+                    <td id="td_admin_buildings">{{ building.address }}</td>
+                    <td id="td_admin_buildings">
+                        <button class="btn btn-default btn-xs btn-detail" ng-click="toggleBuilding('edit',building.id)">Edit</button>
+                        <button class="btn btn-danger btn-xs btn-delete" ng-click="confirmDelete($event,building.id,'Building')">Delete</button>
+                        <!--<md-button ng-show="cookie.cookie_value===item.cookie" class="md-raised md-primary" ng-click="showPrompt($event,(pager.currentPage-1)*pager.pageSize +$index)" >Edit </md-button>-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Modal (Pop up when detail button clicked) -->
+        <script type="text/ng-template" id="buildingModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="buildingModalLabel">{{state}}</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" name="editForm">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Building address</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="address" placeholder="Building address" value="{{building.address}}" ng-model="building.address"
+                                ng-required="inputRequired">
+                        </div>
+                    </div>
+                    <div class="form-horizontal">
+                        <label class="control-label">City</label>
+                        <div class="span4">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <select data-ng-model="selectedCity" class="form-control" ng-change="setSelectedCity(selectedCity)" ng-options="item.city_name as item.city_name for item in cities"
+                                        ng-required="inputRequired">
+                                        <!--<option value="">{{selectedCity}}</option>-->
+                                    </select>
+                                    <!--<input type="button" name="next" class="next action-button" value="Next" />-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>-->
+                <button ng-disabled="editForm.$invalid" type="button" class="btn btn-primary" id="saveBtn" ng-click="saveDataBuilding(modalstate)">Save changes</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+        <div class="btn-group">
+                <button class="btn btn-success" ng-click="changeView('admin')">Back</button>
+                <button class="btn btn-success" ng-click="changeView('reservation')">Reservations</button>
+                <button class="btn btn-success" ng-click="changeView('main')">Main</button>
+        </div>
+
+        <!--<div ng-click="changeView('admin')">
+            Back
+        </div>
+        <div ng-click="changeView('reservation')">
+            Reservations
+        </div>
+        <div ng-click="changeView('main')">
+            Main
+        </div>-->
+    </div>
+
+</div>

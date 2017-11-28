@@ -1,0 +1,74 @@
+{
+  "_args": [
+    [
+      "bootstrap-ui-datetime-picker",
+      "/var/www/html/GuestBookProject/ang"
+    ]
+  ],
+  "_from": "bootstrap-ui-datetime-picker@latest",
+  "_id": "bootstrap-ui-datetime-picker@2.5.4",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/bootstrap-ui-datetime-picker",
+  "_nodeVersion": "6.4.0",
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/bootstrap-ui-datetime-picker-2.5.4.tgz_1485168957582_0.5534403305500746"
+  },
+  "_npmUser": {
+    "email": "darren.gillard81@gmail.com",
+    "name": "gillardo"
+  },
+  "_npmVersion": "3.10.6",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "bootstrap-ui-datetime-picker",
+    "raw": "bootstrap-ui-datetime-picker",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/bootstrap-ui-datetime-picker/-/bootstrap-ui-datetime-picker-2.5.4.tgz",
+  "_shasum": "3158ba89fca2116e3495460e04cfb6a82ae4ec48",
+  "_shrinkwrap": null,
+  "_spec": "bootstrap-ui-datetime-picker",
+  "_where": "/var/www/html/GuestBookProject/ang",
+  "authors": [
+    "Gillardo <darren.gillard81@gmail.com>"
+  ],
+  "dependencies": {},
+  "description": "AngularJs directive to use a date and/or time picker as a dropdown from an input",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-angular-templates": "^0.5.7",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-uglify": "^0.7.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "3158ba89fca2116e3495460e04cfb6a82ae4ec48",
+    "tarball": "https://registry.npmjs.org/bootstrap-ui-datetime-picker/-/bootstrap-ui-datetime-picker-2.5.4.tgz"
+  },
+  "gitHead": "7fc8bff515e4b8abe31c886ca31b66388e9278eb",
+  "license": "MIT",
+  "main": "dist/datetime-picker.js",
+  "maintainers": [
+    {
+      "name": "gillardo",
+      "email": "darren.gillard81@gmail.com"
+    }
+  ],
+  "name": "bootstrap-ui-datetime-picker",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "scripts": {},
+  "url": "https://github.com/Gillardo/bootstrap-ui-datetime-picker",
+  "version": "2.5.4"
+}

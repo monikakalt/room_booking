@@ -1,0 +1,114 @@
+<div class="user-container"  ng-init="init()" >
+
+      <form name="form" role="form">
+
+      <div layout="row" layout-xs="column" layout-wrap layout-padding layout-margin center>
+      <div flex flex-gt-md="20">
+
+      <form id="user_info">
+            <div class="form-group">
+                  <label id="label">User information</label>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="media">
+                        <div align="center">
+                            <img class="thumbnail img-responsive" src="app-content/images/user_authentication/user.png" id="user-info">
+                        </div>
+                        <div class="media-body">
+                            <hr>
+                            <h3><strong>First name:</strong></h3>
+                            <p>{{userInformation[0].first_name}}</p>
+                            <hr>
+                            <h3><strong>Last name:</strong></h3>
+                            <p>{{userInformation[0].last_name}}</p>
+                            <hr>
+                            <h3><strong>Email:</strong></h3>
+                            <p>{{userInformation[0].email}}</p>
+                            <hr>
+                            <h3><strong>Employment date:</strong></h3>
+                            <p>{{userInformation[0].employment_date}}</p>
+                            <hr>
+                            <h3><strong>Date of birth:</strong></h3>
+                            <p>{{userInformation[0].birth_date}}</p>
+                            <hr>
+                            <h3><strong>City:</strong></h3>
+                            <p>{{userInformation[0].city}}</p>
+                            <hr>
+                            <h3><strong>Address:</strong></h3>
+                            <p>{{userInformation[0].address}}</p>
+                            <hr>
+                            <h3><strong>Position at work:</strong></h3>
+                            <p>{{userInformation[0].position}}</p>
+                            <hr>
+                            <h3><strong>Username:</strong></h3>
+                            <p>{{userInformation[0].username}}</p>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!--</div>-->
+
+
+      </form>
+      </div>
+
+      <div flex>
+      <form id="user_reservations">
+            <div class="form-group">
+                       <label id="label">User reservations</label>
+            </div>
+            <div class="text-center">
+                  <ul uib-pagination ng-model="currentPage"  items-per-page="numPerPage" total-items="userReservations.length" max-size="maxSize" boundary-links="true"  first-text="&#9664;" previous-text="&#9665;" next-text="&#9655;" last-text="&#9654;"></ul>
+            </div>
+            <div class="form-group">
+                    <label for="city">City</label>
+                    <select ng-model="city" class="form-control" ng-change="setSelectedCity(city)"
+                         ng-options="item.city_name as item.city_name for item in cities">
+                         <option value="">Select city</option>
+                    </select>
+            </div>
+            <div ng-show="buildingStatus=='true'" class="form-group">
+                    <label for="building">Building</label>
+                    <select ng-model="building" class="form-control" ng-change="setSelectedBuilding(building)"
+                         ng-options="item.address as item.address for item in cityBuildings">
+                         <option value="">Select building</option>
+                    </select>
+            </div>
+
+            <table id="table">
+            <thead id="thead">
+            <tr id="tr">
+                <th id="th">Nr</th>
+                <th id="th">ID</th>
+                <th id="th">City</th>
+                <th id="th">Address</th>
+                <th id="th">Room number</th>
+                <th id="th">Room capacity</th>
+                <th id="th">Reservation timespan</th>
+                <th id="th">Actions</th>
+            </tr>
+            </thead>
+                  <tbody id="tbody">
+                        <tr ng-repeat="reservation in filteredReservations" id="tr">
+                              <td id="td">{{$index + 1}}.</td>
+                              <td id="td">{{ reservation.id }}</td>
+                              <td id="td">{{ reservation.city_name }}</td>
+                              <td id="td">{{ reservation.address }}</td>
+                              <td id="td">{{ reservation.room_nr }}</td>
+                              <td id="td">{{ reservation.capacity }}</td>
+                              <td id="td">{{ reservation.start_date }} - {{ reservation.end_date }}</td>
+                              <td id="td">
+                                    <button class="btn btn-default btn-xs btn-detail" ng-click="toggle(reservation.id)">Edit</button>
+                                    <button class="btn btn-danger btn-xs btn-delete" ng-click="showConfirm($event,reservation.id)">Delete</button>
+                              </td>
+                        </tr>
+                  </tbody>
+            </table>
+            <a href="#!/reservation" class="btn btn-default btn-xs btn-detail" id="new_reservation">New Reservation</a>
+      </form>
+      </div>
+      </form>
+    </div>
+</div>

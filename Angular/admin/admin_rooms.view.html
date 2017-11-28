@@ -1,0 +1,116 @@
+<div class="admin-container" ng-init="loadRooms()">
+
+    <div class="">
+        <form name="form" role="form">
+            <form name="user-info">
+                <div class="form-group">
+                    <label id="label" style="font-size: 200%">Rooms</label>
+                </div>
+            </form>
+        </form>
+        <div class="text-center">
+            <ul uib-pagination ng-model="currentPage" items-per-page="numPerPage" total-items="rooms.length" max-size="maxSize" boundary-links="true" first-text="&#9664;" previous-text="&#9665;" next-text="&#9655;" last-text="&#9654;"></ul>
+        </div>
+        <button id="new_reservation" class="btn btn-default btn-xs btn-detail" ng-click="toggleRoom('add',0)">Add new room</button>        
+        <!-- Table-to-load-the-data Part -->
+        <table id="table">
+            <thead id="thead">
+                <tr id="tr">
+                    <th id="th">Nr</th>
+                    <th id="th">ID</th>
+                    <th id="th">City</th>
+                    <th id="th">Address</th>
+                    <th id="th">Room number</th>
+                    <th id="th">Room capacity</th>
+                    <th id="th">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                <tr ng-repeat="room in filteredRooms" id="tr">
+                    <td id="td_admin_rooms">{{ $index + 1 }}</td>
+                    <td id="td_admin_rooms">{{ room.id }}</td>
+                    <td id="td_admin_rooms">{{ room.city_name}}</td>
+                    <td id="td_admin_rooms">{{ room.address }}</td>
+                    <td id="td_admin_rooms">{{ room.room_nr }}</td>
+                    <td id="td_admin_rooms">{{ room.capacity }}</td>
+                    <td id="td_admin_rooms">
+                        <button class="btn btn-default btn-xs btn-detail" ng-click="toggleRoom('edit',room.id)">Edit</button>
+                        <button class="btn btn-danger btn-xs btn-delete" ng-click="confirmDelete($event,room.id,'Room')">Delete</button>
+                        <!--<md-button ng-show="cookie.cookie_value===item.cookie" class="md-raised md-primary" ng-click="showPrompt($event,(pager.currentPage-1)*pager.pageSize +$index)" >Edit </md-button>-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- Modal (Pop up when detail button clicked) -->
+        <script type="text/ng-template" id="roomModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="roomModalLabel">{{state}}</h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" name="editForm">
+                    <div class="form-horizontal">
+                        <label class="control-label">City</label>
+                        <div class="span4">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <select ng-model="selectedCity" class="form-control" ng-change="getBuildingsByCity(selectedCity)" ng-options="item.city_name as item.city_name for item in cities"
+                                        ng-required="inputRequired">
+                                    </select>
+                                    <!--<input type="button" name="next" class="next action-button" value="Next" />-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-horizontal">
+                        <label class="control-label">Building</label>
+                        <div class="span4">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <select ng-model="selectedBuilding" class="form-control" ng-change="setSelectedBuilding(selectedBuilding)" ng-options="item.address as item.address for item in buildings"
+                                        ng-required="inputRequired">>
+                                    </select>
+                                    <!--<input type="button" name="next" class="next action-button" value="Next" />-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Room number</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="room_nr" placeholder="Room nr" value="{{room.room_nr}}" ng-model="room.room_nr"
+                                ng-required="inputRequired">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Capacity</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="capacity" placeholder="Capacity" value="{{room.capacity}}" ng-model="room.capacity"
+                                ng-required="inputRequired">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button ng-disabled="editForm.$invalid" type="button" class="btn btn-primary" id="saveBtn" ng-click="saveDataRoom(modalstate)">Save changes</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+        <div class="btn-group">
+                <button class="btn btn-success" ng-click="changeView('admin')">Back</button>
+                <button class="btn btn-success" ng-click="changeView('reservation')">Reservations</button>
+                <button class="btn btn-success" ng-click="changeView('main')">Main</button>
+        </div>
+        <!--<div ng-click="changeView('admin')">
+            Back
+        </div>
+        <div ng-click="changeView('reservation')">
+            Reservations
+        </div>
+        <div ng-click="changeView('main')">
+            Main
+        </div>-->
+    </div>
+
+</div>

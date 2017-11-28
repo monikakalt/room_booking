@@ -1,0 +1,73 @@
+<div ng-cloak>
+  <div class="container-fluid">
+    <!--<a href="#" id="mobile_nav">&#9776;</a>-->
+    <div class="navbar-header">
+      <a style="cursor:pointer;" class="navbar-brand" ng-click="toggleLeft()">Teltonika booking</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="#!/main">Home</a></li>
+        <li><a href="#!/reservation">Reservation page</a></li>
+        <li><a href="#!/user">User page</a></li>
+        <li ng-show="isAdmin == 'true'"><a href="#!/admin">Admin page</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#!/user">{{ userInformation[0].first_name }} {{ userInformation[0].last_name }}</a></li>
+        <!--<li><a>Logged in as: {{ userInformation[0].first_name }} {{ userInformation[0].last_name }}</a></li>-->
+        <li><a style="cursor:pointer;" ng-click="logout()" target="_self"><span class="glyphicon glyphicon-log-out"> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+  <md-sidenav class="md-sidenav-left" md-component-id="left" md-whiteframe="4">
+    <!--<md-button ng-click="toggleLeft()" class="md-accent">
+          <span class="glyphicon glyphicon-menu-left" title="Close"></span>
+        </md-button>-->
+    <md-toolbar class="md-theme-indigo">
+      <a href="#!/main" ng-click="toggleLeft()" class="md-toolbar-tools"></a>
+      <!--<h1 class="md-toolbar-tools"></h1>-->
+    </md-toolbar>
+    <md-content layout-margin>
+      <a href="#!/user" ng-click="toggleLeft()"><img src="app-content/images/user_authentication/user.png" id="user-info1"></a>
+      <!--<p>Full name: {{ userInformation[0].first_name }} {{ userInformation[0].last_name }} </p>-->
+      <p>{{ userInformation[0].first_name }} {{ userInformation[0].last_name }} </p>
+
+      <ul class="nav navbar-nav">
+        <!--<a href="#!/main" ng-click="toggleLeft()" id="button_home"><span>Home</span></a>
+          <a href="#!/main" ng-click="toggleLeft()" id="button_reservation"><span>Reservation page</span></a>-->
+
+        <!--<li><span class="glyphicon glyphicon-th-list"></span><a href="#!/reservation" ng-click="toggleLeft()">Reservation page</a></li>-->
+        <li id="button_home">
+          <a href="#!/main" ng-click="toggleLeft()">
+            <span class="glyphicon glyphicon-home"></span>
+          <span class="full-nav"> Home </span>
+        </a>
+        </li>
+        <li id="button_reservation">
+          <a href="#!/reservation" ng-click="toggleLeft()">
+            <span class="glyphicon glyphicon-th-list"></span>
+          <span class="full-nav"> Reservation page </span>
+        </a>
+        </li>
+        <li id="button_admin">
+          <a href="#!/admin" ng-show="isAdmin == 'true'" ng-click="toggleLeft()">
+            <span class="glyphicon glyphicon-wrench"></span>
+          <span class="full-nav"> Admin page </span>
+        </a>
+        </li>
+        <li id="button_logout">
+          <a ng-click="logout()" target="_self">
+            <span class="glyphicon glyphicon-log-out"></span>
+            <span class="full-nav"> Logout</span>
+          </a>
+        </li>     
+        <!--<li id="button_home"><span class="glyphicon glyphicon-home"></span><a href="#!/main" ng-click="toggleLeft()">Home</a></li>-->
+        <!--<li id="button_reservation"><span class="glyphicon glyphicon-th-list"></span><a href="#!/reservation" ng-click="toggleLeft()">Reservation page</a></li>-->
+      </ul>
+ 
+      <!--<a href="#!/main" class="cancel" id="button_cancel"><span class="glyphicon glyphicon-remove-circle" title="Cancel"></span></a> -->
+    </md-content>
+  </md-sidenav>
+  <div>
+    <!--<button type="button" class="btn btn-default btn-xs navbar-twitch-toggle">
+	<span class="glyphicon glyphicon-chevron-left nav-close"></span>
+</button>-->

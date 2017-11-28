@@ -1,0 +1,81 @@
+﻿
+<div class="background-image"></div>
+<div class="container padding-tb">
+    <div class="col-md-6 col-md-offset-3" id="registration">
+        <a href="#!/login">
+            <img src="app-content/images/user_authentication/logo_melynas.png">
+        </a>
+        <div class="login-wrap">
+            <!--<h2>Register</h2>-->
+            <div class="login-html">
+                <a href="#!/login">
+                <label for="tab-1" id="sign-in" class="tab">Sign In</label>
+            </a>
+                <a href="#!/register">
+                <label for="tab-2" id="sign-up" class="tab">Sign Up</label>
+            </a>
+
+                <div class="sign-up-form">
+                    <form name="form" role="form">
+                         <div class="group" ng-class="{ 'has-error': form.full_name.$dirty && form.full_name.$error.required }">
+                            <label for="full_name" class="label">Full name</label>
+                            <span class="input-img" id="username-img"></span>
+                            <input type="text" name="full_name" id="full_name" class="input" ng-model="full_name" placeholder="Enter Full Name" required />
+                            <span ng-show="form.full_name.$dirty && form.full_name.$error.required" class="help-block">Full name is required</span>
+                        </div>
+
+                        <div class="group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+                            <label for="email" class="label">Email</label>
+                            <span class="input-img" id="email-img"></span>
+                            <input type="email" name="email" id="email" class="input"  ng-model="email" placeholder="Enter Email" required />
+                            <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
+                        </div>
+
+                        <div class="group" ng-class="{ 'has-error': form.position.$dirty && form.position.$error.required }">
+                            <label for="position" class="label">Position</label>
+                            <span class="input-img" id="position-img"></span>
+                            <input type="text" name="position" id="position" class="input"  ng-model="position" placeholder="Position" required />
+                            <span ng-show="form.position.$dirty && form.position.$error.required" class="help-block">Position is required</span>
+                        </div>
+
+                        <div class="group" ng-class="{ 'has-error': form.address.$dirty && form.address.$error.required }">
+                            <label for="address" class="label">Address</label>
+                            <span class="input-img" id="address-img"></span>
+                            <input type="text"name="address" id="address" class="input" ng-model="address" placeholder="Enter Address" required />
+                            <span ng-show="form.address.$dirty && form.address.$error.required" class="help-block">Address is required</span>
+                        </div>
+
+                        <div class="form-group" ng-class="{ form.date.$error.required }">
+                               <label for="date" class="label">Employment Date</label>
+                               <md-datepicker ng-model="employment_date" md-placeholder="Enter date"></md-datepicker>
+                           </div>
+   
+                           <div class="form-group" ng-class="{ form.birth_date.$error.required }">
+                               <label for="birth_date" class="label">Birth Date</label>
+                               <md-datepicker ng-model="birth_date" md-placeholder="Enter date"></md-datepicker>
+                           </div>
+   
+                        <div class="group" ng-class="{ 'has-error': form.city.$dirty && form.city.$error.required }">
+                            <label for="city" class="label">City</label>
+                            <span class="input-img" id="city-img"></span>
+                            <input type="text" name="city" id="city" class="input" ng-model="city" placeholder="Enter City" required/>
+                            <span ng-show="form.city.$dirty && form.city.$error.required" class="help-block">City is required</span>
+                        </div>
+
+                        <div class="group">
+
+                            <button type="submit" ng-click="register(full_name,email,position,employment_date,birth_date,city,address)" ng-disabled="form.$invalid || vm.dataLoading"
+                                class="btn btn-primary">Register</button>
+                            <img id="loading" ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                        </div>
+                        <div class="hr"></div>
+                        <div class="foot-lnk">
+                            <a href="#!/login">Already a Member?</a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

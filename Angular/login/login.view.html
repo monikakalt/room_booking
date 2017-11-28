@@ -1,0 +1,44 @@
+<div class="background-image"></div>
+<div class="container padding-tb">
+
+    <div id="login" class="col-md-6 col-md-offset-3">
+        <a href="#!/login">
+            <img src="app-content/images/user_authentication/logo_melynas.png">
+        </a>
+        <div class="login-wrap">
+            <div class="login-html">
+                <a href="#!/login">
+                    <label for="tab-1" id="sign-in" class="tab">Sign In</label>
+                </a>
+                <a href="#!/register">
+                    <label for="tab-2" id="sign-up" class="tab">Sign Up</label>
+                </a>
+
+                <div class="sign-in-form">
+                    <form name="form" role="form">
+                        <div class="group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+                            <label for="username" class="label">Username</label>
+                            <span class="input-img" id="username-img"></span>
+                            <input type="text" ng-model="username" name="username" id="username" class="input" placeholder="Enter Username" required />
+                            <span ng-show=" form.username.$error.required" class="help-block">Username is required</span>
+                        </div>
+                        <div class="group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+                            <span class="input-img" id="password-img"></span>
+                            <label for="password" class="label">Password</label>
+                            <input type="password" ng-model="password" name="password" id="password" class="input" placeholder="Enter Password" required/>
+                            <span ng-show="form.password.$error.required" class="help-block">Password is required</span>
+                        </div>
+                        <div class="group">
+                            <button type="submit" ng-click="save(username,password)" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Sign In</button>
+                            <img id="loading" ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                        </div>
+                        <div class="hr"></div>
+                        <div class="foot-lnk">
+                            <a href="#!/forgot">Forgot Password?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

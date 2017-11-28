@@ -1,0 +1,48 @@
+<div class="background-image"></div>
+<div class="container padding-tb">
+    <div id="change" class="col-md-6 col-md-offset-3">
+        <a href="#!/login">
+                    <img src="app-content/images/user_authentication/logo_melynas.png">
+                </a>
+        <div class="login-wrap">
+            <div class="change-html">
+                <label class="tab">Change Password</label>
+                <div class="change-form">
+                    <form name="form" role="form">
+                        <div class="group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+                            <label for="NewPassword" class="label">New Password</label>
+                            <span class="input-img" id="password-image"></span>
+                            <input type="password" ng-model="newPassword" name="newPassword" placeholder="New Password" id="NewPassword" class="input"
+                                required />
+                            <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+                        </div>
+                        <div class="group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+                            <label for="ConfirmPassword" class="label">Confirm Password</label>
+                            <span class="input-img" id="password-image"></span>
+                            <input type="password" ng-model="confirmPassword" name="confirmPassword" id="ConfirmPassword" placeholder="Re-type Password"
+                                class="input" required />
+                            <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+                        </div>
+                        <div class="registrationFormAlert" id="CheckPasswordMatch"></div>
+                        <div class="group">
+                            <button type="submit" ng-click="changePassword(newPassword,confirmPassword)" ng-disabled="form.$invalid" class="btn btn-primary">Submit</button>
+                        </div>
+                        <div class="hr"></div>
+                        <div class="foot-lnk">
+                            <a href="#!/login">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#ConfirmPassword").keyup(function () {
+            var password = $("#NewPassword").val();
+            $("#CheckPasswordMatch").html(password == $(this).val() ? "" : "Passwords do not match!");
+        });
+    });
+
+</script>

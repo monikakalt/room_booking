@@ -1,0 +1,147 @@
+<div class="reservation-container" ng-init="init()">
+    <div class="form-group">
+        <label id="label">Add reservation</label>
+    </div>
+    <div class="container padding-tb">
+        <div class="col-md-6 col-md-offset-3" id="reservation">
+            <!-- multistep form -->
+            <form class="form-horizontal" id="msform" name="form" role="form">
+                <ul class="nav nav-tabs">
+                    <li ng-repeat="step in steps" ng-class="{active: $index==getCurrentStepIndex()}">
+                        <a href="javascript:void(0)" ng-click="goToStep($index)">{{step}}</a>
+                    </li>
+                    <!--<a href="#!/main" class="btn btn-link" id="button_cancel"><span class="glyphicons glyphicons-remove" title="Cancel"></span></a>            -->
+                    <a href="#!/main" class="cancel" id="button_cancel"><span class="glyphicon glyphicon-remove-circle" title="Cancel"></span></a>
+                </ul>
+                <div ng-switch on="selection">
+
+                    <!-- First Step -->
+                    <div ng-switch-when="City">
+                        <div class="row">
+                            <div class="span4">
+                                <div class="control-group">
+                                    <label class="control-label" for="city">City</label>
+                                    <div class="controls">
+                                        <select ng-model="selectedValues.city_name" class="form-control" ng-change="setSelectedCity(selectedValues.city_name)" ng-options="item.city_name as item.city_name for item in cities" ng-disabled="isDisabledDate(date, mode)">
+                            </select>
+                                        <!--<input type="button" name="next" class="next action-button" value="Next" />-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Second Step -->
+                    <div ng-switch-when="Date">
+                        <div class="row">
+                            <div class="span4">
+                                <div class="control-group">
+                                    <div uib-dropdown class="dropdown form-group dropdown-start-parent">
+                                        <label class="control-label">Start date:</label>
+                                        <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target=".dropdown-start-parent">
+                                            <!--<div class="controls">-->
+                                            <div uib-dropdown-toggle class="input-group">
+                                                <input type="text" class="form-control" placeholder="Enter start date" data-date-time-input="YYYY-MM-DD HH:mm" data-ng-model="selectedValues.start_date"
+                                                />
+                                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" uib-tooltip="Open Calendar">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                        <span class="sr-only">Calendar</span>
+                                                </button>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <div uib-dropdown-menu role="menu" auto-close="outsideClick">
+                                            <datetimepicker data-ng-model="selectedValues.start_date" data-before-render="startDateBeforeRender($dates)" data-datetimepicker-config="configurateDatetimePicker('start')"
+                                                data-on-set-time="startDateOnSetTime()">
+                                            </datetimepicker>
+                                        </div>
+                                        <!--</div>-->
+                                    </div>
+                                    <div uib-dropdown class="dropdown form-group dropdown-end-parent">
+                                        <label class="control-label">End date:</label>
+                                        <a class="dropdown-toggle" id="dropdownEnd" role="button" data-toggle="dropdown" data-target=".dropdown-end-parent">
+                                            <!--<div class="controls">-->
+                                            <div uib-dropdown-toggle class="input-group">
+                                                <input type="text" class="form-control" placeholder="Enter end date" data-date-time-input="YYYY-MM-DD HH:mm" data-ng-model="selectedValues.end_date"
+                                                />
+                                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" uib-tooltip="Open Calendar">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                        <span class="sr-only">Calendar</span>
+                                                </button>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <div uib-dropdown-menu role="menu" auto-close="outsideClick">
+                                            <datetimepicker data-ng-model="selectedValues.end_date" data-before-render="endDateBeforeRender($view, $dates,$leftDate, $upDate, $rightDate)"
+                                                data-datetimepicker-config="configurateDatetimePicker('end')" data-on-set-time="endDateOnSetTime()">
+                                            </datetimepicker>
+                                        </div>
+                                        <!--</div>-->
+                                        <div class="help-block">
+                                            {{disabledMessage}}
+                                        </div>
+                                    </div>
+                                    <!--<input type="button" name="next" class="next action-button" value="Next" />-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Third Step -->
+                    <div ng-switch-when="Room & Equipment">
+                        <div class="row">
+                            <div class="span4">
+                                <div class="control-group">
+                                    <div ng-show="errorStatus=='true'">
+                                        <label>There are no empty rooms at this time</label>
+                                    </div>
+                                    <div ng-show="roomStatus=='true'" class="form-group">
+                                        <label for="room" class="fs-title">Room</label>
+                                        <select ng-model="selected" class="form-control" ng-change="SelectedRoom(selected)" ng-options="' Address: '+ n.address + ', Room: ' + n.room_nr  + ', Capacity: ' + n.capacity for n in rooms">
+                            <option value="">{{selectedValues.room_selection_string}}</option>
+                            </select>
+                                    </div>
+                                    <div ng-show="equipmentStatus=='true'" class="form-group">
+                                        <label for="equipment" class="fs-title">Equipment</label>
+                                        <div ng-repeat='item in items'>
+                                            <select ng-model="item" class="form-control" ng-change="AddEquipment(item, $index)" ng-disabled="isDisabled[$index]" ng-options="item.equipment_type + ' (' + item.equipment_code + ')' for item in allEquipment">
+                                        <option value="">{{selectedValues.equip_selection_strings[$index]}}</option>
+                                    </select>
+                                            <button id="delete_button" class="btn btn-danger" ng-click='del($index)'>Delete item</button>
+                                        </div>
+                                        <button ng-show="addStatus=='true'" class="btn btn-secondary" ng-click='add()'>Add</button>
+                                    </div>
+                                    <!--<input type="button" name="previous" class="next action-button" value="Previous" />-->
+                                    <div ng-show="allowSubmit=='true'" class="form-actions">
+                                        <button id="reserve_button" type="submit" ng-click="Reserve()" ng-disabled="form.$invalid || vm.dataLoading" class="btn-primary"><span>Reserve</span></button>
+                                        <!--<button id="reserve_button" type="submit" ng-click="Reserve()" ng-disabled="form.$invalid || vm.dataLoading" class="button"><span>Reserve</span></button>-->
+                                        <!--Reserve  <span class="glyphicon glyphicon-arrow-right"></span></button>-->
+                                        <img id="loading" ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                                        />
+                                        <!--<a href="#!/main" class="btn btn-link">Cancel</a>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--<div class="clearfix" ></div>-->
+                    <ul class="pager">
+                        <li class="arrow" ng-class="{disabled: !hasPreviousStep()}">
+                            <a href="javascript:void(0);" ng-click="decrementStep()" class="button1" id="button_previous"><span>Previous</span></a>
+                        </li>
+                        <li class="arrow" ng-class="{disabled: !hasNextStep()}">
+                            <!--<a href="javascript:void(0);" ng-click="incrementStep()">Next &rarr;</a>-->
+                            <a href="javascript:void(0);" ng-click="incrementStep()" class="button" id="button_next"><span>Next</span></a>
+                        </li>
+                    </ul>
+                    <!--<div class="pull-right"><button style="margin:20px 0;" class="btn btn-success">Confirm and Register</button></div>-->
+                    <!--<div class="clearfix"></div>-->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
